@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Trip Expense Report</title>
+    <style>
+        .title-border {
+            border: 2px solid #030303; /* Change color as desired */
+            padding: 16px;
+            margin: 20px auto; /* Centers the border box */
+            max-width: 600px; /* Adjust as needed */
+        }
+        .title {
+            text-align: center;
+            color: #ff7b00d3;
+        }
+        body {
+            font-family: "DejaVu Sans", sans-serif;
+            margin: 30px;
+        }
+        h1, h2 {
+            color: #2c503a;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+        th, td {
+            border: 1px solid #0a0a0a;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #92d8dd;
+        }
+        .trip-header {
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Trip Expense Report</h1>
+
+    {% for trip in trips %}
+        <div class="trip-header">
+            <h2 class="title">Destination: {{ trip.destination }}</h2>
+            <p><strong>Start Date:</strong> {{ trip.start_date }}</p>
+        </div>
+
+        {% if trip.expenses %}
+        <table>
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Expense</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th>Remarks</th>
+                    <th>Payment Mode</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in trip.expenses %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ expense.expense }}</td>
+                    <td>{{ expense.category_name }}</td>
+                    <td>{{ expense.date }}</td>
+                    <td>{{ expense.remarks }}</td>
+                    <td>{{ expense.payment_mode }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p><em>No expenses recorded for this trip.</em></p>
+        {% endif %}
+    {% endfor %}
+</body>
+</html>

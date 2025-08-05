@@ -1,0 +1,13 @@
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+**__pycache__/
+# static/
+static/CACHE/ 
+# media/
+.env
+passenger_wsgi.py
+# media
+tmp/
+private_key.pem
+public_key.pem
