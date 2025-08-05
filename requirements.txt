@@ -62,5 +62,5 @@ cryptograpy==0.0.0
 pillow
 pytz
 requests
-
+gunicorn==23.0.0
 
