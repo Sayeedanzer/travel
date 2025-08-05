@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    container_name: django_app
+    command: gunicorn --bind 0.0.0.0:8000 travel_expense_app.wsgi.application
+    ports:
+      - "80:8000"
+    restart: always
+    environment:
+      - DB_NAME=mydb
+      - DB_USER=dbuser
+      - DB_PASSWORD=dbpassword
+      - DB_HOST=mydb-instance.c9hsg8jkxxyz.ap-south-1.rds.amazonaws.com
+      - DB_PORT=3306
+    networks:
+      - mynetwork
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
+    restart: always
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+
+volumes:
+  jenkins_home:
